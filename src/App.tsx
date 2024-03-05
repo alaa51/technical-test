@@ -1,16 +1,9 @@
 import SwipeableButton from './components/SwipeableButton.tsx';
 import React, {useCallback} from 'react';
-import {
-  Alert,
-  Dimensions,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Alert, Pressable, SafeAreaView, Text, View} from 'react-native';
 import Animated, {LinearTransition} from 'react-native-reanimated';
 import {FlatList, GestureHandlerRootView} from 'react-native-gesture-handler';
+import {styles} from './styles.tsx';
 
 const App = () => {
   const flatListRef = React.useRef<FlatList>(null);
@@ -26,7 +19,7 @@ const App = () => {
     {id: Math.round(Math.random() * 10000), title: 'Im seventh'},
   ]);
 
-  const handleSwipeRight = useCallback((item: number) => {
+  const handleSwipeRight = useCallback(() => {
     Alert.alert('Swiped Right');
   }, []);
 
@@ -42,7 +35,7 @@ const App = () => {
           key={item.id}
           panRef={panRef}
           title={item.title}
-          onSwipeRight={() => handleSwipeRight(item.id)}
+          onSwipeRight={() => handleSwipeRight()}
           onSwipeLeft={() => handleSwipeLeft(item.id)}
         />
       );
@@ -83,29 +76,3 @@ const Separator = () => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  fullFlex: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 33,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 16,
-  },
-  button: {
-    height: 59,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: Dimensions.get('window').width,
-    alignSelf: 'center',
-    borderRadius: 10,
-    backgroundColor: 'grey',
-  },
-  buttonTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-});

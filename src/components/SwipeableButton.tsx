@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 import {
   Gesture,
   GestureDetector,
@@ -15,6 +15,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import {styles} from '../styles.tsx';
 
 const Delete =
   'https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-52-103683.png';
@@ -43,11 +44,9 @@ const SwipeableButton = ({
   const X = useSharedValue(0);
   const isDragging = useSharedValue(false);
 
-  // this is a workaround for the issue with the gesture handler
-  // As we know that the simultaneousHandlers are not working as expected with the latest API version 2
   const longPressGesture = Gesture.LongPress()
     .withTestId('long-press')
-    .onStart(event => {
+    .onStart(() => {
       isDragging.value = true;
     })
     .minDuration(100);
@@ -164,58 +163,6 @@ const SwipeableButton = ({
     </GestureHandlerRootView>
   );
 };
-
-const styles = StyleSheet.create({
-  swipeButtonContainer: {
-    height: 59,
-    backgroundColor: 'lightgrey',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: BUTTON_WIDTH,
-  },
-  swipeButton: {
-    position: 'absolute',
-    left: 0,
-    height: 59,
-    width: 80,
-    borderRadius: 10,
-    zIndex: 3,
-    backgroundColor: 'blue',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  swipeText: {
-    alignSelf: 'center',
-    fontSize: 14,
-    fontWeight: '400',
-    zIndex: 2,
-    color: 'grey',
-  },
-  flexCenter: {
-    flexDirection: 'row',
-    position: 'relative',
-    alignItems: 'center',
-  },
-  iconLeft: {
-    position: 'absolute',
-    resizeMode: 'contain',
-    zIndex: -1,
-    height: 45,
-    left: 5,
-    width: 45,
-  },
-  iconRight: {
-    position: 'absolute',
-    resizeMode: 'contain',
-    zIndex: -1,
-    right: 0,
-    height: 59,
-    width: 59,
-  },
-  fullFlex: {flex: 1},
-});
 
 SwipeableButton.defaultProps = {
   onSwipeRight: () => {},

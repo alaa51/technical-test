@@ -11,7 +11,6 @@ import {LongPressGesture, PanGesture} from 'react-native-gesture-handler';
 it('should render a SwipeableButton component with given props', () => {
   // import necessary dependencies
 
-  // define the props for the SwipeableButton component
   const props = {
     panRef: null,
     index: 0,
@@ -20,17 +19,14 @@ it('should render a SwipeableButton component with given props', () => {
     title: 'Test Button',
   } as SwipeButtonPropsType;
 
-  // render the SwipeableButton component with the given props
   const {getByText} = render(<SwipeableButton {...props} />);
 
-  // assert that the SwipeableButton component is rendered
   expect(getByText('Test Button')).toBeTruthy();
 });
 
 it('sends events with additional data to handlers', () => {
   const panHandlers = mockedEventHandlers();
 
-  // define the props for the SwipeableButton component
   const props = {
     panRef: null,
     index: 0,
